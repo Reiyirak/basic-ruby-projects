@@ -11,13 +11,23 @@ def do_encyption(alphabet, string_array, shift)
   new_string = []
   string_array.map do |char|
     alphabet.each_with_index do |letter, index|
-      if char == letter && char == char.upcase
-        new_letter = alphabet[index + shift].upcase
-        new_string.push(new_letter)
+      if (char == letter) && (char == char.upcase)
+        if letter == 'z'
+          new_letter_z = alphabet[shift - 1].upcase
+          new_string.push(new_letter_z)
+        else
+          new_letter = alphabet[index + shift].upcase
+          new_string.push(new_letter)
+        end
         break
       elsif char == letter
-        new_letter = alphabet[index + shift]
-        new_string.push(new_letter)
+        if letter == 'z'
+          new_letter_z = alphabet[shift - 1]
+          new_string.push(new_letter_z)
+        else
+          new_letter = alphabet[index + shift]
+          new_string.push(new_letter)
+        end
         break
       end
     end
