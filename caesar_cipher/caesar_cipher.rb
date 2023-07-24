@@ -1,35 +1,27 @@
 # frozen_string_literal: true
 
 def cipher(string, shift)
-  alphabet = [*('a'..'z')]
   old_string = string.split('')
-  new_string = do_encyption(alphabet, old_string, shift)
+  new_string = do_encyption(old_string, shift)
   new_string.join
 end
 
-def do_encyption(alphabet, string_array, shift)
+def do_encyption(string_array, shift)
   new_string = []
   string_array.map do |char|
-    alphabet.each_with_index do |letter, index|
-      if (char == letter) && (char == char.upcase)
-        if letter == 'z'
-          new_letter_z = alphabet[shift - 1].upcase
-          new_string.push(new_letter_z)
-        else
-          new_letter = alphabet[index + shift].upcase
-          new_string.push(new_letter)
-        end
-        break
-      elsif char == letter
-        if letter == 'z'
-          new_letter_z = alphabet[shift - 1]
-          new_string.push(new_letter_z)
-        else
-          new_letter = alphabet[index + shift]
-          new_string.push(new_letter)
-        end
-        break
+    if char.ord.between?(65, 90) || char.ord.between?(97, 122)
+      if char.ord == 90
+        new_char = 65 + shift - 1
+        new_string.push(new_char.chr)
+      elsif char.ord == 122
+        new_char = 97 + shift - 1
+        new_string.push(new_char.chr)
+      else
+        new_char = char.ord + shift
+        new_string.push(new_char.chr)
       end
+    else
+      new_string.push(char)
     end
   end
   new_string
